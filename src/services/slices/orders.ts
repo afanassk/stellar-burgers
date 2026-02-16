@@ -6,6 +6,7 @@ import {
 } from '../../utils/burger-api';
 import { TOrder } from '@utils-types';
 import { RootState } from 'src/services/store';
+import { resetConstructor } from './burger-constructor';
 
 type TOrderState = {
   orders: TOrder[];
@@ -26,10 +27,14 @@ export const initialState: TOrderState = {
 export const createOrder = createAsyncThunk<
   { order: TOrder; name: string },
   string[],
-  { rejectValue: string }
->('orders/createOrder', async (ingredients, { rejectWithValue }) => {
+  { rejectValue: string; state: RootState }
+>('orders/createOrder', async (ingredients, { rejectWithValue, dispatch }) => {
   try {
     const createdOrder = await orderBurgerApi(ingredients);
+
+    // Очищаем конструктор только после успешного создания заказа
+    dispatch(resetConstructor());
+
     return { order: createdOrder.order, name: createdOrder.name };
   } catch (err: unknown) {
     if (err instanceof Error) return rejectWithValue(err.message);

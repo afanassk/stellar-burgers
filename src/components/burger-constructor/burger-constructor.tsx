@@ -10,7 +10,6 @@ import {
   createOrder,
   clearOrderModal
 } from '../../services/slices/orders';
-import { resetConstructor } from '../../services/slices/burger-constructor';
 import { isAuthenticated } from '../../services/slices/user';
 
 export const BurgerConstructor: FC = () => {
@@ -40,7 +39,6 @@ export const BurgerConstructor: FC = () => {
     ];
 
     dispatch(createOrder(burgerData));
-    dispatch(resetConstructor());
   };
 
   const closeOrderModal = () => {
