@@ -6,12 +6,16 @@ import { BurgerIngredient } from '@components';
 export const IngredientsCategoryUI = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryUIProps
->(({ title, titleRef, ingredients, ingredientsCounters }, ref) => (
+>(({ title, titleRef, ingredients, ingredientsCounters, dataTestId }, ref) => (
   <>
-    <h3 className='text text_type_main-medium mt-10 mb-6' ref={titleRef}>
+    <h3
+      className='text text_type_main-medium mt-10 mb-6'
+      ref={titleRef}
+      data-testid={`${dataTestId}-title`}
+    >
       {title}
     </h3>
-    <ul className={styles.items} ref={ref}>
+    <ul className={styles.items} ref={ref} data-testid={dataTestId}>
       {ingredients.map((ingredient) => (
         <BurgerIngredient
           ingredient={ingredient}
